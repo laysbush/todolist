@@ -1,0 +1,69 @@
+<div class="task-menu">
+  <div [class.disabled]="!isLeftMenuOpen()" class="left-menu">
+    <div class="menu-title">TODO LIST</div>
+    <div class="left-menu-form">
+        @if(!isNewTask()) {
+            <button class="add-task-button" (click)="openTask(true)">Добавить задачу</button>
+        }  @else {
+            <form [formGroup]="newTaskForm">
+            <div class="input-form">
+                <input formControlName="title" placeholder="Введите название" />
+            </div>
+            <div class="input-form">
+                <input formControlName="description" placeholder="Введите описание" />
+            </div>
+            @if(newTaskForm.invalid && isFormSubmitted()) {
+                <div class="warning-message">
+                    Неверно заполнена форма
+                </div>
+            }
+            <button (click)="addTodo(true)" class="add-task-button">Подтвердить</button>
+            </form>
+        }
+    </div>
+    @if (isLeftMenuOpen()) {
+      <mat-icon (click)="changeFormActive(false)">keyboard_double_arrow_left</mat-icon>
+    } @else {
+      <mat-icon (click)="changeFormActive(true)">keyboard_double_arrow_right</mat-icon>
+    }
+  </div>
+  <div class="right-menu">
+    <div class="menu-title">Список задач</div>
+    <div class="table-list">
+        <div class="table-row title">
+            <div class="row">Название</div>
+            <div class="row">Описание</div>
+            <div class="row">Статус</div>
+            <div class="row">Удалить</div>
+            <div class="row">Подробнее</div>
+            <div class="row">Переключить</div>
+        </div>
+        <div class="table-result">
+            @for(todo of list(); track todo.id) {
+                <div class="table-row">
+                    <div class="row">{{todo.title}}</div>
+                    <div class="row">{{todo.description}}</div>
+                    <div class="row">{{todo.status === false ? 'Не выполнена' : 'Выполнена'}}</div>
+                    <mat-icon (click)="deleteTodo(todo.id)" class="row">auto_delete</mat-icon>
+                    <mat-icon [routerLink]="['/tasks', todo.id]" class="row">info</mat-icon>
+                    <mat-icon (click)="updateStatus(todo.id)" class="row">refresh</mat-icon>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="search-menu">
+        <form [formGroup]="searchForm">
+            <div class="input-form">
+                <input formControlName="title" placeholder="Введите название" />
+            </div>
+            <div class="input-form">
+                <input formControlName="description" placeholder="Введите описание" />
+            </div>
+            <div class="search-button">
+                <button (click)="searchTodo(searchForm.value.title, searchForm.value.description)" class="add-task-button search">Поиск</button>
+                <button (click)="clearSearch()" class="add-task-button search">Очистить</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

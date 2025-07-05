@@ -1,0 +1,8 @@
+<div class="todo-info">
+    <div class="show-info">
+        <mat-icon (click)="returnToMain()">arrow_back</mat-icon>
+        <div>Название: {{selectedTodo()?.title}}</div>
+        <div>Описание: {{selectedTodo()?.description}}</div>
+        <div>Статус: {{selectedTodo()?.status === false ? 'Не выполнена' : 'Выполнена'}}</div>
+    </div>
+</div>

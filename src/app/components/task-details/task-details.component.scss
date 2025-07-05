@@ -1,0 +1,19 @@
+.todo-info {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: orange;
+
+    .show-info {
+        width: fit-content;
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 7px;
+
+        mat-icon {
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+    }
+}
